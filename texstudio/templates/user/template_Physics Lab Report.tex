@@ -1,0 +1,133 @@
+\documentclass[12pt]{article}
+ 
+\usepackage{fancyhdr}
+\usepackage{yfonts}
+\usepackage{eufrak}
+\usepackage{tocloft}
+\usepackage{tikz-cd}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{ marvosym }
+\usepackage{graphicx}
+\usepackage{bigints}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{enumerate}
+%\usepackage{stmaryrd}
+\usepackage{extarrows}
+\usepackage{bm}
+\usepackage{pgf}
+\usepackage{xcolor,colortbl}
+\usepackage{enumitem}
+\usepackage{wrapfig}
+\usepackage{siunitx}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+
+\newcommand{\cupdot}{\charfusion[\mathbin]{\cup}{\cdot}}
+\newcommand{\bigcupdot}{\charfusion[\mathop]{\bigcup}{\cdot}}                    
+
+
+\newcommand{\drawge}{-- (rel axis cs:1,0) -- (rel axis cs:1,1) -- (rel axis cs:0,1) \closedcycle}
+\newcommand{\drawle}{-- (rel axis cs:1,1) -- (rel axis cs:1,0) -- (rel axis cs:0,0) \closedcycle}
+
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\vect}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\xhat}{\vect{\hat{x}}}
+\newcommand{\yhat}{\vect{\hat{y}}}
+\newcommand{\zhat}{\vect{\hat{z}}}
+\newcommand{\Card}[1]{\lvert#1\rvert}
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+  \newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+
+\DeclareMathOperator{\ID}{id}
+\DeclareMathOperator{\Dim}{dim}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\IM}{im}
+\DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\Coker}{coker}
+\DeclareMathOperator{\K}{k}
+\DeclareMathOperator{\Rank}{\textbf{\emph{rank}}}
+\DeclareMathOperator{\Null}{\textbf{\emph{null}}}
+\DeclareMathOperator{\Spm}{Spm}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\M}{\mathfrak{m}}
+\DeclareMathOperator{\A}{\mathfrak{a}}
+\DeclareMathOperator{\B}{\mathfrak{b}}
+\DeclareMathOperator{\PR}{\mathfrak{p}}
+\DeclareMathOperator{\VarSet}{\EuFrak{X}}
+\DeclareMathOperator{\Rred}{\textit{R}_{red}}
+\DeclareMathOperator{\Power}{\textit{R}\llbracket \textit{X} \rrbracket}
+\DeclareMathOperator{\PowerF}{\textit{K}\llbracket \textit{X} \rrbracket}
+\DeclareMathOperator{\Rad}{rad}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{case}[2][Case]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{Part}[2][Part]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{claim}[2][Claim]{\begin{trivlist}
+\item[\hskip \labelsep {\itshape #1}\hskip \labelsep {\itshape #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution]{\begin{proof}
+		[#1:\nopunct]$ $\par\nobreak\ignorespaces}{\end{proof}}
+\newenvironment{solutions}[1][Solutions]{\begin{proof}
+		[#1:\nopunct]$ $\par\nobreak\ignorespaces}{\end{proof}}
+
+
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+\pagestyle{fancy}
+\fancyhf{} %clear all headers and footers
+\lhead{Ivan Gonzalez} %goes on the left in the header.
+\chead{Title of Assignment} %goes on the center in the header.
+\rhead{\today} %goes on the right in the header.
+ 
+%\renewcommand{\qed}{} % removes all qed symbols
+
+
+ 
+\begin{document}
+
+\section{Introduction}
+
+Introduction here
+
+\section{Experiment: Setup and Data}
+
+Experiment description here
+
+\section{Data and Error Analysis}
+
+Data and error analysis here
+
+\section{Summary and Conclusions}
+
+Summary and Conclusions here
+
+\end{document}

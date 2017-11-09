@@ -360,6 +360,7 @@ end)
             arrow("#C0C0A2","#777E76"),
             wibox.container.background(wibox.container.margin(clock, 4, 10), "#777E76"),
             arrow("#777E76", "#222211"),
+            wibox.widget.systray()
             wibox.container.background(wibox.container.margin(s.mylayoutbox,2,2), "#222211"),
         },
     }

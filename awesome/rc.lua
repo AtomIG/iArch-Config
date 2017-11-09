@@ -682,6 +682,16 @@ awful.rules.rules = {
         end
     },
 
+    --For proper placement of common applications
+    { rule = { instance = "qutebrowser" },
+        properties = { tag = "Browse" } },
+
+    { rule = { instance = "texstudio" },
+        properties = { tag = "Edit" } },
+
+    { rule = { instance = "spotify" },
+        properties = { tag = "Music" } },
+
     -- Titlebars
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = false } },

@@ -1,3 +1,8 @@
+iArch-Config's personal theme used Awesome WM Copycats themes as template
+
+
+
+
 Awesome WM Copycats
 ===================
 

@@ -55,7 +55,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "compton -b","unclutter -root","xss-lock ~/.config/lock.conf ","xset s off","xset -dpms"}) -- entries must be comma-separated
+run_once({ "compton -b","unclutter -root","xss-lock ~/.config/lock.conf ","xset s off","xset -dpms","nm-applet","cbatticon","pasystray" }) -- entries must be comma-separated
 -- }}}
 
 -- {{{ Variable definitions
@@ -200,9 +200,6 @@ end)
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(function(s) 
     beautiful.at_screen_connect(s)
-    if s.mybottomwibox then
-        s.mybottomwibox.visible = false
-    end
 end)
 -- }}}
 
@@ -433,7 +430,7 @@ globalkeys = awful.util.table.join(
         function()
             awful.util.spawn("xbacklight -dec 10")
         end),
-            
+
     -- MPD control
 --[[    awful.key({ altkey, "Control" }, "Up",
         function ()

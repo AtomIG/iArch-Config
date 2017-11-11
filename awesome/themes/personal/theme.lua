@@ -13,8 +13,8 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local collision = require("collision")
 local os, math, string, next = os, math, string, next
-local vicious = require("vicious")
-
+--local vicious = require("vicious")
+require("spotify")
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/personal"
@@ -91,6 +91,7 @@ theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/
 theme.icon_theme                                = "Numix"
 theme.systray_icon_spacing                      = 6
 theme.bg_systray                                = "#474747"
+local spotifybg                                 = "#CCCCCC"
 
 local markup = lain.util.markup
 local separators = lain.util.separators
@@ -102,53 +103,8 @@ theme.volume = lain.widget.alsabar({
     height = 0.5,
 })
 
--- Current Music
---[[mpdwidget = wibox.widget.textbox()
-vicious.register(mpdwidget,vicious.widgets.mpd)
---local micon = wibox.widget.imagebox(theme.widget_music)
---theme.music = lain.widget.music()--[[{
---        settings = function()
-  --          if music.status == "playing" then
-    --            widget:set_markup(markup.font(theme.font, "hello"))
-      --      end
-       -- end})--]]
---local music = wibox.widget.textbox (
---    text = awful.
---]]
-
---[[local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
-local mpdicon = wibox.widget.imagebox(theme.widget_music)
-mpdicon:buttons(awful.util.table.join(
-    awful.button({ modkey }, 1, function () awful.spawn.with_shell(musicplr) end),
-    awful.button({ }, 1, function ()
-        awful.spawn.with_shell("mpc prev")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 2, function ()
-        awful.spawn.with_shell("mpc toggle")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 3, function ()
-        awful.spawn.with_shell("mpc next")
-        theme.mpd.update()
-
-theme.mpd = lain.widget.mpd({
-    settings = function()
-        if mpd_now.state == "play" then
-            artist = " " .. mpd_now.artist .. " "
-            title  = mpd_now.title  .. " "
-            mpdicon:set_image(theme.widget_music_on)
-            widget:set_markup(markup.font(theme.font, markup("#FF8466", artist) .. " " .. title))
-        elseif mpd_now.state == "pause" then
-            widget:set_markup(markup.font(theme.font, " mpd paused "))
-            mpdicon:set_image(theme.widget_music_pause)
-        else
-            widget:set_text("")
-            mpdicon:set_image(theme.widget_music)
-        end
-    end
-})
---]]
+-- Spotify
+local spotify = spotify_widget
 
 -- Clock
 local clock = wibox.widget.textclock(" %a %b %d  %l:%M %p", 60)
@@ -173,25 +129,6 @@ theme.fs = lain.widget.fs({
 
 -- Separators
 local arrow = separators.arrow_left
-
---[[function theme.powerline_rl(cr, width, height)
-    local arrow_depth, offset = height/2, 0
-
-    -- Avoid going out of the (potential) clip area
-    if arrow_depth < 0 then
-        width  =  width + 2*arrow_depth
-        offset = -arrow_depth
-    end
-
-    cr:move_to(offset + arrow_depth         , 0        )
-    cr:line_to(offset + width               , 0        )
-    cr:line_to(offset + width - arrow_depth , height/2 )
-    cr:line_to(offset + width               , height   )
-    cr:line_to(offset + arrow_depth         , height   )
-    cr:line_to(offset                       , height/2 )
-
-    cr:close_path()
-end--]]
 
 function theme.at_screen_connect(s)
     -- If wallpaper is a function, call it with the screen
@@ -247,9 +184,9 @@ function theme.at_screen_connect(s)
             nil, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            arrow("alpha","#CCCCCC"),
-            wibox.container.background(wibox.container.margin(theme.music.widget,200,10), "#CCCCCC"),
-            arrow("#CCCCCC", "#959595"),
+            arrow("alpha",spotifybg),
+            wibox.container.background(wibox.container.margin(spotify,85,85),spotifybg),
+            arrow(spotifybg, "#959595"),
             wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3), "#959595"),
             arrow("#959595", "#6e6e6e"),
             wibox.container.background(wibox.container.margin(wibox.widget { fsicon, theme.fs.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#6e6e6e"),

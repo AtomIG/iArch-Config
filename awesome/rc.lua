@@ -788,5 +788,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- Magnify a client
 client.connect_signal("magnify", function(c) lain.util.magnify_client(c) end)
+
 -- }}}
 local collision = require("collision")()

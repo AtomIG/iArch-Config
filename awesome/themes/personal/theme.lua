@@ -13,6 +13,8 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local collision = require("collision")
 local os, math, string, next = os, math, string, next
+local vicious = require("vicious")
+
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/personal"
@@ -99,6 +101,54 @@ theme.volume = lain.widget.alsabar({
     notification_preset = { font = "xos4 Terminus 10", fg = theme.fg_normal },
     height = 0.5,
 })
+
+-- Current Music
+--[[mpdwidget = wibox.widget.textbox()
+vicious.register(mpdwidget,vicious.widgets.mpd)
+--local micon = wibox.widget.imagebox(theme.widget_music)
+--theme.music = lain.widget.music()--[[{
+--        settings = function()
+  --          if music.status == "playing" then
+    --            widget:set_markup(markup.font(theme.font, "hello"))
+      --      end
+       -- end})--]]
+--local music = wibox.widget.textbox (
+--    text = awful.
+--]]
+
+--[[local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
+local mpdicon = wibox.widget.imagebox(theme.widget_music)
+mpdicon:buttons(awful.util.table.join(
+    awful.button({ modkey }, 1, function () awful.spawn.with_shell(musicplr) end),
+    awful.button({ }, 1, function ()
+        awful.spawn.with_shell("mpc prev")
+        theme.mpd.update()
+    end),
+    awful.button({ }, 2, function ()
+        awful.spawn.with_shell("mpc toggle")
+        theme.mpd.update()
+    end),
+    awful.button({ }, 3, function ()
+        awful.spawn.with_shell("mpc next")
+        theme.mpd.update()
+
+theme.mpd = lain.widget.mpd({
+    settings = function()
+        if mpd_now.state == "play" then
+            artist = " " .. mpd_now.artist .. " "
+            title  = mpd_now.title  .. " "
+            mpdicon:set_image(theme.widget_music_on)
+            widget:set_markup(markup.font(theme.font, markup("#FF8466", artist) .. " " .. title))
+        elseif mpd_now.state == "pause" then
+            widget:set_markup(markup.font(theme.font, " mpd paused "))
+            mpdicon:set_image(theme.widget_music_pause)
+        else
+            widget:set_text("")
+            mpdicon:set_image(theme.widget_music)
+        end
+    end
+})
+--]]
 
 -- Clock
 local clock = wibox.widget.textclock(" %a %b %d  %l:%M %p", 60)
@@ -197,10 +247,12 @@ function theme.at_screen_connect(s)
             nil, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            arrow("alpha", "#959595"),
+            arrow("alpha","#CCCCCC"),
+            wibox.container.background(wibox.container.margin(theme.music.widget,200,10), "#CCCCCC"),
+            arrow("#CCCCCC", "#959595"),
             wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3), "#959595"),
             arrow("#959595", "#6e6e6e"),
-            wibox.container.background(wibox.container.margin(wibox.widget { fsicon, theme.fs.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#6e6e6e"),--"#474747"),
+            wibox.container.background(wibox.container.margin(wibox.widget { fsicon, theme.fs.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#6e6e6e"),
             arrow("#6e6e6e",theme.bg_systray),
             wibox.container.background(wibox.container.margin(systray,4,2), theme.bg_systray),
             wibox.container.background(wibox.container.margin(clock, 4, 10), theme.bg_systray),

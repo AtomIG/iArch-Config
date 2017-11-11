@@ -67,7 +67,6 @@ local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = "vim"
 local browser      = "qutebrowser"
 local guieditor    = "atom"    
-local request_magnified_terminal = false
 local useless_gap = 0
 
 awful.util.terminal = terminal
@@ -344,8 +343,10 @@ globalkeys = awful.util.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ altkey, "Control" }, "t", 
             function ()
-                request_magnified_terminal = true
-               awful.spawn(terminal)
+               awful.spawn(terminal,false,
+                    function(c) 
+                         c:emit_signal("magnify")
+                    end)
             end,
               {description = "open a magnified terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
@@ -782,6 +783,10 @@ client.connect_signal("focus",
             c.border_width = 0
         end
     end)
+
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+-- Magnify a client
+client.connect_signal("magnify", function(c) lain.util.magnify_client(c) end)
 -- }}}
 local collision = require("collision")()

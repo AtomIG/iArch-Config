@@ -14,7 +14,7 @@ local beautiful = require("beautiful")
 local collision = require("collision")
 local os, math, string, next = os, math, string, next
 --local vicious = require("vicious")
-require("spotify")
+local spotify_display = require("spotify")
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/personal"
@@ -104,7 +104,10 @@ theme.volume = lain.widget.alsabar({
 })
 
 -- Spotify
-local spotify = spotify_widget
+local spotify = spotify_display({
+    settings = function()
+        widget:set_markup(markup.font(theme.font, metadata.title))
+    end})
 
 -- Clock
 local clock = wibox.widget.textclock(" %a %b %d  %l:%M %p", 60)
@@ -185,7 +188,8 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             arrow("alpha",spotifybg),
-            wibox.container.background(wibox.container.margin(spotify,30,30),spotifybg),
+            --spotify.widget.
+            wibox.container.background(wibox.container.margin(spotify.widget,30,30),spotifybg),
             arrow(spotifybg, "#959595"),
             wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3), "#959595"),
             arrow("#959595", "#6e6e6e"),

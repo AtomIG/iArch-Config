@@ -185,7 +185,7 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             arrow("alpha",spotifybg),
-            wibox.container.background(wibox.container.margin(spotify,85,85),spotifybg),
+            wibox.container.background(wibox.container.margin(spotify,30,30),spotifybg),
             arrow(spotifybg, "#959595"),
             wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3), "#959595"),
             arrow("#959595", "#6e6e6e"),

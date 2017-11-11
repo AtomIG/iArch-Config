@@ -43,7 +43,7 @@ local update_widget_text = function(widget, stdout, _, _, _)
         widget:set_text('')
         widget:set_visible(false)
     else
-        widget:set_text("<span fgcolor='#474747'>" .. stdout .. "</span>")
+        widget:set_text("<span fgcolor='#474747' weight='bold'>" .. stdout .. "</span>")
         widget:set_visible(true)
     end
 end

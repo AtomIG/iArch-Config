@@ -4,13 +4,13 @@ local watch = require("awful.widget.watch")
 local lain  = require("lain")
 local markup = lain.util.markup
 
-local GET_SPOTIFY_STATUS_CMD = os.getenv("HOME") .. '/.config/awesome/awesome-wm-widgets/spotify-widget/spotify_stat'
+local GET_SPOTIFY_STATUS_CMD = os.getenv("HOME") .. '/.config/awesome/spotify_stat'
 local GET_CURRENT_SONG_CMD = 'sp current-oneline'
 local PATH_TO_ICONS = "/usr/share/icons/Numix"
 
 spotify_widget = wibox.widget {
     {
-        id = "icon",
+        id = 'icon',
         widget = wibox.widget.imagebox,
     },
     {
@@ -30,9 +30,9 @@ spotify_widget = wibox.widget {
 local update_widget_icon = function(widget, stdout, _, _, _)
     stdout = string.gsub(stdout, "\n", "")
     if (stdout == 'RUNNING') then
-        widget:set_image(PATH_TO_ICONS .. "/actions/24/player_play.png")
+        widget:set_image(PATH_TO_ICONS .. "/24/actions/player_play.svg")
     elseif (stdout == "CORKED") then
-        widget:set_image(PATH_TO_ICONS .. "/actions/24/player_pause.png")
+        widget:set_image(PATH_TO_ICONS .. "/24/actions/player_pause.svg")
     else
         widget:set_image(nil)
     end

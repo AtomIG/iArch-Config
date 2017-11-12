@@ -108,10 +108,7 @@ theme.volume = lain.widget.alsabar({
 -- Spotify
 local spotify = spotify_display({
     settings = function()
-        display = metadata.title .. " by " .. metadata.artist
-        display = markup.font(theme.font, display)
-        display = markup.bold(display)
-        display = markup.fg.color("#474747",display)
+        display = "<span face='liberation-sans 9' weight='bold' fgcolor='#474747'>" .. metadata.title .. " by " .. metadata.artist .. "</span>"
         widget:set_markup(display)
     end})
 

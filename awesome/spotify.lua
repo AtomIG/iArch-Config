@@ -3,17 +3,20 @@ local wibox = require("wibox")
 local newtimer = require("lain.helpers").newtimer
 local string = string
 
+
 local function construct(args)
     local spotify  = { widget = wibox.widget.textbox() }
     local args     = args or {}
     local timeout  = args.timeout or 3
     local settings = args.settings or function() end
-    
+
+-- Note that metadata.status,metadata.title,metadata.artist, and metadata.album will never take on a value of nil. Instead, when there is no player available, they will report values of "". Code used in constructing the widget (i.e. the settings function) should be made accordingly.
+
     metadata = {
-        status = "N/A",
-        title  = "N/A",
-        artist = "N/A",
-        album  = "N/A",
+        status = "",
+        title  = "",
+        artist = "",
+        album  = "",
     }
     
     function spotify.update()
@@ -24,23 +27,34 @@ local function construct(args)
         
 
             awful.spawn.easy_async(get_status, 
-                function(stdout,_,_,_,_)
-                    metadata.status = string.gsub(stdout,"\n","")
+                function(stdout,stderr,_,_,_)
+                    if stderr == "" then
+                        stdout = string.gsub(stdout,"\n","")
+                            if stdout == 'Not available' then
+                                metadata.status = ""
+                            else metadata.status = stdout end
+                    else metadata.status = "" end
                 end)
 
             awful.spawn.easy_async(get_title, 
-                function(stdout,_,_,_,_)
-                    metadata.title = string.gsub(stdout,"\n","")
+                function(stdout,stderr,_,_,_)
+                    if stderr == "" then
+                        metadata.title = string.gsub(stdout,"\n","")
+                    else metadata.title = "" end
                 end)
 
             awful.spawn.easy_async(get_artist, 
-                function(stdout,_,_,_,_)
-                    metadata.artist = string.gsub(stdout,"\n","")
+                function(stdout,stderr,_,_,_)
+                    if stderr == "" then
+                        metadata.artist = string.gsub(stdout,"\n","")
+                    else metadata.artist = "" end
                 end)
 
             awful.spawn.easy_async(get_album, 
-                function(stdout,_,_,_,_)
-                    metadata.album = stdout
+                function(stdout,stderr,_,_,_)
+                    if stderr == "" then
+                        metadata.album = string.gsub(stdout,"\n","")
+                    else metadata.album = "" end
                 end)
 
         widget = spotify.widget

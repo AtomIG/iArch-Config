@@ -15,6 +15,8 @@ local collision = require("collision")
 local os, math, string, next = os, math, string, next
 --local vicious = require("vicious")
 local spotify_display = require("spotify")
+local naughty = require("naughty")
+
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/personal"
@@ -106,11 +108,11 @@ theme.volume = lain.widget.alsabar({
 -- Spotify
 local spotify = spotify_display({
     settings = function()
-        display = metadata.title .. " by " metadata.artist
+        display = metadata.title .. " by " .. metadata.artist
         display = markup.font(theme.font, display)
         display = markup.bold(display)
-        display = markup.fgcolor(
-        widget:set_markup(markup.font(theme.font, metadata.title))
+        display = markup.fg.color("#474747",display)
+        widget:set_markup(display)
     end})
 
 -- Clock

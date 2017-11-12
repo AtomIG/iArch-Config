@@ -63,7 +63,7 @@ theme.widget_cpu                                = theme.dir .. "/icons/cpu.png"
 theme.widget_temp                               = theme.dir .. "/icons/temp.png"
 theme.widget_net                                = theme.dir .. "/icons/net.png"
 theme.widget_hdd                                = theme.dir .. "/icons/hdd.png"
-theme.widget_music                              = theme.dir .. "/icons/note.png"
+theme.widget_music_play                         = theme.dir .. "/icons/play.png"
 theme.widget_music_on                           = theme.dir .. "/icons/note_on.png"
 theme.widget_music_pause                        = theme.dir .. "/icons/pause.png"
 theme.widget_music_stop                         = theme.dir .. "/icons/stop.png"
@@ -103,16 +103,16 @@ theme.volume = lain.widget.alsabar({
 })
 
 -- Spotify
-local statusicon = wibox.widget.imagebox()
+local spotifyicon = wibox.widget.imagebox()
 local spotify = spotify_display({
     settings = function()
         if metadata.status ~= "" and metadata.title ~= "" and metadata.artist ~= "" then
             display = "<span weight='bold' foreground='#474747'>" .. metadata.title .. " by " .. metadata.artist .. "</span>"
             widget:set_markup(display)
             if metadata.status == 'Playing' then
-                statusicon.image = theme.widget_music_on
+                spotifyicon.image = theme.widget_music_play
             elseif metadata.status == 'Paused' then
-                statusicon.image = theme.widget_music_pause
+                spotifyicon.image = theme.widget_music_pause
             end
         else widget:set_text("     ")
         end
@@ -197,7 +197,7 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             arrow("alpha","#cccccc"),
-            wibox.container.background(wibox.container.margin(wibox.widget { statusicon, spotify.widget, layout = wibox.layout.align.horizontal },30,30),"#cccccc"),
+            wibox.container.background(wibox.container.margin(wibox.widget { wibox.container.margin(spotifyicon,0,4), spotify.widget, layout = wibox.layout.align.horizontal },26,30),"#cccccc"),
             arrow("#cccccc", "#959595"),
             wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3), "#959595"),
             arrow("#959595", "#6e6e6e"),

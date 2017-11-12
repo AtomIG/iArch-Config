@@ -13,9 +13,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local collision = require("collision")
 local os, math, string, next = os, math, string, next
---local vicious = require("vicious")
 local spotify_display = require("spotify")
-local naughty = require("naughty")
 
 
 local theme                                     = {}
@@ -93,7 +91,6 @@ theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/
 theme.icon_theme                                = "Numix"
 theme.systray_icon_spacing                      = 6
 theme.bg_systray                                = "#474747"
-local spotifybg                                 = "#CCCCCC"
 
 local markup = lain.util.markup
 local separators = lain.util.separators
@@ -108,8 +105,11 @@ theme.volume = lain.widget.alsabar({
 -- Spotify
 local spotify = spotify_display({
     settings = function()
+        if metadata.status ~= "N/A" and metadata.status ~= "" and metadata.status and metadata.artist and metadata.title then
         display = "<span weight='bold' foreground='#474747'>" .. metadata.title .. " by " .. metadata.artist .. "</span>"
         widget:set_markup(display)
+        else widget:set_text("     ")
+        end
     end})
 
 -- Clock
@@ -190,10 +190,9 @@ function theme.at_screen_connect(s)
             nil, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            arrow("alpha",spotifybg),
-            --spotify.widget.
-            wibox.container.background(wibox.container.margin(spotify.widget,30,30),spotifybg),
-            arrow(spotifybg, "#959595"),
+            arrow("alpha","#cccccc"),
+            wibox.container.background(wibox.container.margin(spotify.widget,30,30),"#cccccc"),
+            arrow("#cccccc", "#959595"),
             wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3), "#959595"),
             arrow("#959595", "#6e6e6e"),
             wibox.container.background(wibox.container.margin(wibox.widget { fsicon, theme.fs.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#6e6e6e"),

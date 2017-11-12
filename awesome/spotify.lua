@@ -1,12 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
-local watch = require("awful.widget.watch")
-local lain  = require("lain")
-local helpers = require("lain.helpers")
 local newtimer = require("lain.helpers").newtimer
-local markup = lain.util.markup
 local string = string
-local naughty = require("naughty")
 
 local function construct(args)
     local spotify  = { widget = wibox.widget.textbox() }

@@ -11,7 +11,7 @@ local spotify_display = require("spotify")
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/personal"
-theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/6.png"
+theme.wallpaper                                 = theme.dir .. "/desktop/wall.png"
 theme.font                                      = "Lato semibold 10"
 theme.fg_normal                                 = "#FEFEFE"
 theme.fg_focus                                  = "#32D6FF"
@@ -192,14 +192,14 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             arrow("alpha","#cccccc"),
-            wibox.container.background(wibox.container.margin(wibox.widget { wibox.container.margin(spotifyicon,0,4), spotify.widget, layout = wibox.layout.align.horizontal },26,30),"#cccccc"),
+            wibox.container.background(wibox.container.margin(wibox.widget { wibox.container.margin(spotifyicon,0,4), spotify.widget, layout = wibox.layout.align.horizontal },26,30,0,1),"#cccccc"),
             arrow("#cccccc", "#959595"),
-            wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3), "#959595"),
+            wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3,0,1), "#959595"),
             arrow("#959595", "#6e6e6e"),
-            wibox.container.background(wibox.container.margin(wibox.widget { fsicon, theme.fs.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#6e6e6e"),
+            wibox.container.background(wibox.container.margin(wibox.widget { fsicon, theme.fs.widget, layout = wibox.layout.align.horizontal }, 3, 3,0,1), "#6e6e6e"),
             arrow("#6e6e6e",theme.bg_systray),
             wibox.container.background(wibox.container.margin(systray,6,2), theme.bg_systray),
-            wibox.container.background(wibox.container.margin(clock, 8, 10), theme.bg_systray),
+            wibox.container.background(wibox.container.margin(clock, 8, 10,0,1), theme.bg_systray),
             arrow(theme.bg_systray, "#202020"),
             wibox.container.background(wibox.container.margin(s.mylayoutbox,2,2), "#202020"),
         },

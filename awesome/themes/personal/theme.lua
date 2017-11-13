@@ -107,7 +107,9 @@ local spotify = spotify_display({
             elseif metadata.status == 'Paused' then
                 spotifyicon.image = theme.widget_music_pause
             end
-        else widget:set_text("     ")
+        else 
+            widget:set_text("     ")
+            spotifyicon.image = nil
         end
     end})
 

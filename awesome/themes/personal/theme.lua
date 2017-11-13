@@ -12,7 +12,7 @@ local spotify_display = require("spotify")
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/personal"
 theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/6.png"
-theme.font                                      = "Sans 9"
+theme.font                                      = "Lato semibold 10"
 theme.fg_normal                                 = "#FEFEFE"
 theme.fg_focus                                  = "#32D6FF"
 theme.fg_urgent                                 = "#C83F11"
@@ -100,7 +100,7 @@ local spotifyicon = wibox.widget.imagebox()
 local spotify = spotify_display({
     settings = function()
         if metadata.status ~= "" and metadata.title ~= "" and metadata.artist ~= "" then
-            display = "<span weight='bold' foreground='#474747' font='" .. theme.font .. "'>" .. metadata.title .. " by " .. metadata.artist .. "</span>"
+            display = "<span weight='heavy' foreground='#474747' font='" .. theme.font .. "'>" .. metadata.title .. " by " .. metadata.artist .. "</span>"
             widget:set_markup(display)
             if metadata.status == 'Playing' then
                 spotifyicon.image = theme.widget_music_play

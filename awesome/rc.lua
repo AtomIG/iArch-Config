@@ -55,7 +55,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "compton -b","unclutter -root","xss-lock ~/.config/lock.conf ","xset s off","xset -dpms","nm-applet","cbatticon","pasystray" }) -- entries must be comma-separated
+run_once({ "compton -b","unclutter -root","xset s off","xset -dpms","nm-applet","cbatticon","pasystray" }) -- entries must be comma-separated
 -- }}}
 
 -- {{{ Variable definitions

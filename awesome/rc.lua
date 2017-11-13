@@ -55,7 +55,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "compton -b","unclutter -root","xset s off","xset -dpms","nm-applet","cbatticon","pasystray" }) -- entries must be comma-separated
+run_once({ "compton -b","unclutter -root","xset s off","xss-lock ~/.config/lock.conf","xset -dpms","nm-applet","cbatticon","pasystray" }) -- entries must be comma-separated
 -- }}}
 
 -- {{{ Variable definitions
@@ -67,7 +67,8 @@ local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = "vim"
 local browser      = "qutebrowser"
 local guieditor    = "atom"    
-local useless_gap = 0
+local useless_gap  = 0
+local lock_cmd     = "playerctl pause; i3lock -ui" .. os.getenv("HOME") ..  "/.config/awesome/themes/personal/desktop/lock.png"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "Browse", "Edit", "Compile", "Draw", "Music", "Misc" }
@@ -160,6 +161,21 @@ lain.layout.cascade.tile.ncol          = 2
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
 -- }}}
+
+ -- {{{ Autostart windowless processes
+ local function run_once(cmd_arr)
+     for _, cmd in ipairs(cmd_arr) do
+         findme = cmd
+         firstspace = cmd:find(" ")
+         if firstspace then
+             findme = cmd:sub(0, firstspace-1)
+         end
+         awful.spawn.with_shell(string.format("pgrep -u $USER -x %s > /dev/null || (%s)", findme, cmd))
+     end
+ end
+
+ run_once({ "compton -b","unclutter -root","xset s off","xss-lock -n '" .. lock_cmd .. "'","xset -dpms","nm-applet","cbatticon","pasystray" }) -- entries must be comma-separated
+ -- }}}
 
 -- {{{ Menu
 local myawesomemenu = {
@@ -348,6 +364,8 @@ globalkeys = awful.util.table.join(
               {description = "open a magnified terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
+    awful.key({ altkey, "Control" }, "l", function() awful.spawn.with_shell(lock_cmd) end,
+            {description = "lock awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "e", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 

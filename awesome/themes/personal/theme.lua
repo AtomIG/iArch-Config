@@ -15,7 +15,6 @@ local collision = require("collision")
 local os, math, string, next = os, math, string, next
 local spotify_display = require("spotify")
 
-
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/personal"
 theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/6.png"
@@ -119,13 +118,13 @@ local spotify = spotify_display({
     end})
 
 -- Clock
-local clock = wibox.widget.textclock(" %a %b %d  %l:%M %p", 60)
+local clock = wibox.widget.textclock("<span face='liberation-sans 9'>%a %b %d  %l:%M %p </span>", 59)
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
 local mem = lain.widget.mem({
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. mem_now.used .. "MB "))
+        widget:set_markup("<span face='liberation-sans 9'> " .. mem_now.used .. "MB " .. "</span>")
     end
 })
 
@@ -135,7 +134,7 @@ theme.fs = lain.widget.fs({
     options  = "--exclude-type=tmpfs",
     notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "xos4 Terminus 10" },
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. fs_now.available_gb .. "GB "))
+        widget:set_markup("<span face='liberation-sans 9'> " .. fs_now.available_gb .. "GB " .. "</span>")
     end
 })
 
@@ -203,8 +202,8 @@ function theme.at_screen_connect(s)
             arrow("#959595", "#6e6e6e"),
             wibox.container.background(wibox.container.margin(wibox.widget { fsicon, theme.fs.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#6e6e6e"),
             arrow("#6e6e6e",theme.bg_systray),
-            wibox.container.background(wibox.container.margin(systray,4,2), theme.bg_systray),
-            wibox.container.background(wibox.container.margin(clock, 4, 10), theme.bg_systray),
+            wibox.container.background(wibox.container.margin(systray,6,2), theme.bg_systray),
+            wibox.container.background(wibox.container.margin(clock, 8, 10), theme.bg_systray),
             arrow(theme.bg_systray, "#202020"),
             wibox.container.background(wibox.container.margin(s.mylayoutbox,2,2), "#202020"),
         },

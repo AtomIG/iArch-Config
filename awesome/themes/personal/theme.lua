@@ -99,6 +99,7 @@ theme.volume = lain.widget.alsabar({
 local spotifyicon = wibox.widget.imagebox()
 --spotifyicon.resize = true
 local spotify = spotify_display({
+    timeout = 0.6,
     settings = function()
         if metadata.status ~= "" and metadata.title ~= "" and metadata.artist ~= "" then
             display = "<span weight='heavy' foreground='#474747' font='" .. theme.font .. "'>" .. metadata.title .. " by " .. metadata.artist .. "</span>"
@@ -120,6 +121,7 @@ local clock = wibox.widget.textclock("<span font='" .. theme.font .. "'>%a %b %d
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
 local mem = lain.widget.mem({
+    timeout = 599,
     settings = function()
         widget:set_markup("<span font='" .. theme.font ..  "'> " .. mem_now.used .. "MB " .. "</span>")
     end
@@ -128,6 +130,7 @@ local mem = lain.widget.mem({
 -- / fs
 local fsicon = wibox.widget.imagebox(theme.widget_hdd)
 theme.fs = lain.widget.fs({
+    timeout = 599,
     options  = "--exclude-type=tmpfs",
     notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "xos4 Terminus 10" },
     settings = function()

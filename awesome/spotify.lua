@@ -57,6 +57,9 @@ local function construct(args)
                     else metadata.album = "" end
                 end)
 
+-- To do: Make it so that the spotify widget will have a much larger timeout when music is not playing
+-- or, alternatively, to set up signals so that the widget will only query playerctl if spotify is open
+
         widget = spotify.widget
         settings()
     end

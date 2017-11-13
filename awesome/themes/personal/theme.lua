@@ -1,11 +1,4 @@
 
---[[
-                                 
-     Powerarrow Awesome WM theme 
-     github.com/copycat-killer   
-                                 
---]]
-
 local gears = require("gears")
 local lain  = require("lain")
 local awful = require("awful")
@@ -14,11 +7,12 @@ local beautiful = require("beautiful")
 local collision = require("collision")
 local os, math, string, next = os, math, string, next
 local spotify_display = require("spotify")
+--local naughty = require("naughty")
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/personal"
 theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/6.png"
-theme.font                                      = "liberation-sans 9"
+theme.font                                      = "Sans 9"
 theme.fg_normal                                 = "#FEFEFE"
 theme.fg_focus                                  = "#32D6FF"
 theme.fg_urgent                                 = "#C83F11"
@@ -106,7 +100,7 @@ local spotifyicon = wibox.widget.imagebox()
 local spotify = spotify_display({
     settings = function()
         if metadata.status ~= "" and metadata.title ~= "" and metadata.artist ~= "" then
-            display = "<span weight='bold' foreground='#474747'>" .. metadata.title .. " by " .. metadata.artist .. "</span>"
+            display = "<span weight='bold' foreground='#474747' font='" .. theme.font .. "'>" .. metadata.title .. " by " .. metadata.artist .. "</span>"
             widget:set_markup(display)
             if metadata.status == 'Playing' then
                 spotifyicon.image = theme.widget_music_play
@@ -118,13 +112,13 @@ local spotify = spotify_display({
     end})
 
 -- Clock
-local clock = wibox.widget.textclock("<span face='liberation-sans 9'>%a %b %d  %l:%M %p </span>", 59)
+local clock = wibox.widget.textclock("<span font='" .. theme.font .. "'>%a %b %d  %l:%M %p </span>", 59)
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
 local mem = lain.widget.mem({
     settings = function()
-        widget:set_markup("<span face='liberation-sans 9'> " .. mem_now.used .. "MB " .. "</span>")
+        widget:set_markup("<span font='" .. theme.font ..  "'> " .. mem_now.used .. "MB " .. "</span>")
     end
 })
 
@@ -134,7 +128,7 @@ theme.fs = lain.widget.fs({
     options  = "--exclude-type=tmpfs",
     notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "xos4 Terminus 10" },
     settings = function()
-        widget:set_markup("<span face='liberation-sans 9'> " .. fs_now.available_gb .. "GB " .. "</span>")
+        widget:set_markup("<span font='" .. theme.font .. "'> " .. fs_now.available_gb .. "GB " .. "</span>")
     end
 })
 
@@ -165,7 +159,7 @@ function theme.at_screen_connect(s)
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
+    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, {font = theme.font})
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)

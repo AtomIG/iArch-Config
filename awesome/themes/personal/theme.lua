@@ -56,9 +56,9 @@ theme.widget_cpu                                = theme.dir .. "/icons/cpu.png"
 theme.widget_temp                               = theme.dir .. "/icons/temp.png"
 theme.widget_net                                = theme.dir .. "/icons/net.png"
 theme.widget_hdd                                = theme.dir .. "/icons/hdd.png"
-theme.widget_music_play                         = theme.dir .. "/icons/play.png"
+theme.widget_music_play                         = theme.dir .. "/icons/play.svg"
 theme.widget_music_on                           = theme.dir .. "/icons/note_on.png"
-theme.widget_music_pause                        = theme.dir .. "/icons/pause.png"
+theme.widget_music_pause                        = theme.dir .. "/icons/pause.svg"
 theme.widget_music_stop                         = theme.dir .. "/icons/stop.png"
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = false
@@ -97,6 +97,7 @@ theme.volume = lain.widget.alsabar({
 
 -- Spotify
 local spotifyicon = wibox.widget.imagebox()
+--spotifyicon.resize = true
 local spotify = spotify_display({
     settings = function()
         if metadata.status ~= "" and metadata.title ~= "" and metadata.artist ~= "" then
@@ -192,7 +193,7 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             arrow("alpha","#cccccc"),
-            wibox.container.background(wibox.container.margin(wibox.widget { wibox.container.margin(spotifyicon,0,4), spotify.widget, layout = wibox.layout.align.horizontal },26,30,0,1),"#cccccc"),
+            wibox.container.background(wibox.container.margin(wibox.widget { wibox.container.margin(spotifyicon,0,6,2,1), spotify.widget, layout = wibox.layout.align.horizontal },30,30,0,1),"#cccccc"),
             arrow("#cccccc", "#959595"),
             wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3,0,1), "#959595"),
             arrow("#959595", "#6e6e6e"),

@@ -56,7 +56,7 @@ theme.widget_cpu                                = theme.dir .. "/icons/cpu.png"
 theme.widget_temp                               = theme.dir .. "/icons/temp.png"
 theme.widget_net                                = theme.dir .. "/icons/net.png"
 theme.widget_hdd                                = theme.dir .. "/icons/hdd.png"
-theme.widget_music_play                         = theme.dir .. "/icons/play.svg"
+theme.widget_music_play                         = theme.dir .. "/icons/play-button.svg"
 theme.widget_music_on                           = theme.dir .. "/icons/note_on.png"
 theme.widget_music_pause                        = theme.dir .. "/icons/pause.svg"
 theme.widget_music_stop                         = theme.dir .. "/icons/stop.png"
@@ -97,7 +97,6 @@ theme.volume = lain.widget.alsabar({
 
 -- Spotify
 local spotifyicon = wibox.widget.imagebox()
---spotifyicon.resize = true
 local spotify = spotify_display({
     timeout = 0.6,
     settings = function()

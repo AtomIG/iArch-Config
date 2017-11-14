@@ -264,7 +264,7 @@
 
 ## Background color of the statusbar.
 ## Type: QssColor
-# c.colors.statusbar.normal.bg = 'black'
+c.colors.statusbar.normal.bg = '#202020'
 
 ## Foreground color of the statusbar.
 ## Type: QssColor
@@ -314,7 +314,7 @@
 
 ## Background color of unselected even tabs.
 ## Type: QtColor
-# c.colors.tabs.even.bg = 'darkgrey'
+c.colors.tabs.even.bg = '#959595'
 
 ## Foreground color of unselected even tabs.
 ## Type: QtColor
@@ -343,7 +343,7 @@
 
 ## Background color of unselected odd tabs.
 ## Type: QtColor
-# c.colors.tabs.odd.bg = 'grey'
+c.colors.tabs.odd.bg = '#959595'
 
 ## Foreground color of unselected odd tabs.
 ## Type: QtColor
@@ -351,7 +351,7 @@
 
 ## Background color of selected even tabs.
 ## Type: QtColor
-# c.colors.tabs.selected.even.bg = 'black'
+c.colors.tabs.selected.even.bg = '#474747'
 
 ## Foreground color of selected even tabs.
 ## Type: QtColor
@@ -359,7 +359,7 @@
 
 ## Background color of selected odd tabs.
 ## Type: QtColor
-# c.colors.tabs.selected.odd.bg = 'black'
+c.colors.tabs.selected.odd.bg = '#474747'
 
 ## Foreground color of selected odd tabs.
 ## Type: QtColor

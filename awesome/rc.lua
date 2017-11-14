@@ -43,21 +43,6 @@ do
 end
 -- }}}
 
--- {{{ Autostart windowless processes
-local function run_once(cmd_arr)
-    for _, cmd in ipairs(cmd_arr) do
-        findme = cmd
-        firstspace = cmd:find(" ")
-        if firstspace then
-            findme = cmd:sub(0, firstspace-1)
-        end
-        awful.spawn.with_shell(string.format("pgrep -u $USER -x %s > /dev/null || (%s)", findme, cmd))
-    end
-end
-
-run_once({ "compton -b","unclutter -root","xset s off","xss-lock ~/.config/lock.conf","xset -dpms","nm-applet","cbatticon","pasystray" }) -- entries must be comma-separated
--- }}}
-
 -- {{{ Variable definitions
 local chosen_theme = "personal"
 local modkey       = "Mod4"
@@ -68,7 +53,7 @@ local gui_editor   = "vim"
 local browser      = "qutebrowser"
 local guieditor    = "atom"    
 local useless_gap  = 0
-local lock_cmd     = "playerctl pause; i3lock -ui" .. os.getenv("HOME") ..  "/.config/awesome/themes/personal/desktop/lock.png"
+local lock_cmd     = os.getenv("HOME") ..  "/.config/lock.conf"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "Browse", "Edit", "Compile", "Draw", "Music", "Misc" }
@@ -174,7 +159,7 @@ beautiful.init(theme_path)
      end
  end
 
- run_once({ "compton -b","unclutter -root","xset s off","xss-lock -n '" .. lock_cmd .. "'","xset -dpms","nm-applet","cbatticon","pasystray" }) -- entries must be comma-separated
+ run_once({ "compton -b","unclutter -root",'xss-lock ' .. lock_cmd,"nm-applet","cbatticon","pasystray" }) -- entries must be comma-separated
  -- }}}
 
 -- {{{ Menu

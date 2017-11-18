@@ -55,6 +55,12 @@ local guieditor    = "atom"
 local useless_gap  = 0
 local lock_cmd     = os.getenv("HOME") ..  "/.config/lock.conf"
 
+-- {{{ Local Variables used in spawn callbacks(as the awful.spawn method is broken):
+local useless_gap = 0
+local request_magnified_terminal = false
+-- }}}
+
+
 awful.util.terminal = terminal
 awful.util.tagnames = { "Browse", "Edit", "Compile", "Draw", "Music", "Misc" }
 awful.layout.layouts = {
@@ -341,11 +347,9 @@ globalkeys = awful.util.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ altkey, "Control" }, "t", 
             function ()
-               awful.spawn(terminal,false,
-                    function(c) 
-                         c:emit_signal("magnify")
-                    end)
-            end,
+		request_magnified_terminal = true
+	    	awful.spawn(terminal)
+	    end,
               {description = "open a magnified terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
@@ -665,14 +669,14 @@ awful.rules.rules = {
      }
     },
 
-    -- For magnified terminal
+-- For magnified terminal
     { rule = { class = "Lxterminal" },
-     callback = function(c)
-         if request_magnified_terminal then
-             lain.util.magnify_client(c)
-         end
-         request_magnified_terminal = false
-     end },
+     	callback = function(c)
+        	if request_magnified_terminal then
+             		lain.util.magnify_client(c)
+         	end
+         	request_magnified_terminal = false
+     	end },
 
     { rule = { class = "Nautilus" },
         callback = function(c)
@@ -785,8 +789,4 @@ client.connect_signal("focus",
     end)
 
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
-
--- Magnify a client
-client.connect_signal("magnify", function(c) lain.util.magnify_client(c) end)
--- }}}
 local collision = require("collision")()

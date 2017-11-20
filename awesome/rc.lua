@@ -47,7 +47,7 @@ end
 local chosen_theme = "personal"
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "lxterminal"
+local terminal     = "lilyterm"
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = "vim"
 local browser      = "qutebrowser"
@@ -347,8 +347,19 @@ globalkeys = awful.util.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ altkey, "Control" }, "t", 
             function ()
-		request_magnified_terminal = true
-	    	awful.spawn(terminal)
+		--[[
+		In some terminal emulators (such as lxterminal) only the first instance of the terminal emulator will be
+		magnified. This comes from the fact that programs like lxterminal run all instances under one process,
+		so only when spawning the first instance will the callback be executed. In the case of lilyterm,
+		it accepts the flag `-s` where `lilyterm -s` runs that window under its own process
+		--]]
+		if terminal == "lilyterm" then
+		magnifyterm = "lilyterm -s" 
+		end
+		awful.spawn(magnifyterm, nil, 
+			function(c)
+  				c:emit_signal("magnify")
+			end)
 	    end,
               {description = "open a magnified terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
@@ -789,4 +800,5 @@ client.connect_signal("focus",
     end)
 
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("magnify", function(c) lain.util.magnify_client(c) end)
 local collision = require("collision")()

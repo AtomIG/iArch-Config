@@ -44,22 +44,17 @@ end
 -- }}}
 
 -- {{{ Variable definitions
-local chosen_theme = "personal"
-local modkey       = "Mod4"
-local altkey       = "Mod1"
-local terminal     = "lilyterm"
-local editor       = os.getenv("EDITOR") or "vim"
-local gui_editor   = "vim"
-local browser      = "qutebrowser"
-local guieditor    = "atom"    
-local useless_gap  = 0
-local lock_cmd     = os.getenv("HOME") ..  "/.config/lock.conf"
-
--- {{{ Local Variables used in spawn callbacks(as the awful.spawn method is broken):
-local useless_gap = 0
-local request_magnified_terminal = false
--- }}}
-
+local chosen_theme     = "personal"
+local modkey           = "Mod4"
+local altkey           = "Mod1"
+local terminal         = "lilyterm"
+local magnify_terminal = "lilyterm -s -u " .. os.getenv("HOME") .. "/.config/lilyterm/clear.conf"
+local editor           = os.getenv("EDITOR") or "vim"
+local gui_editor       = "vim"
+local browser          = "qutebrowser"
+local guieditor        = "atom"    
+local useless_gap      = 0
+local lock_cmd         = os.getenv("HOME") ..  "/.config/lock.conf"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "Browse", "Edit", "Compile", "Draw", "Music", "Misc" }
@@ -353,10 +348,7 @@ globalkeys = awful.util.table.join(
 		so only when spawning the first instance will the callback be executed. In the case of lilyterm,
 		it accepts the flag `-s` where `lilyterm -s` runs that window under its own process
 		--]]
-		if terminal == "lilyterm" then
-		magnifyterm = "lilyterm -s" 
-		end
-		awful.spawn(magnifyterm, nil, 
+		awful.spawn(magnify_terminal, nil, 
 			function(c)
   				c:emit_signal("magnify")
 			end)
@@ -397,14 +389,6 @@ globalkeys = awful.util.table.join(
               end,
               {description = "restore minimized", group = "client"}),
 
-    -- Dropdown application
-   -- awful.key({ modkey, }, "z", function () awful.screen.focused().guake:toggle() end),
-
-    -- Widgets popups
-   -- awful.key({ altkey, }, "c", function () lain.widget.calendar.show(7) end),
-   -- awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end),
-   -- awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end),
-
     -- ALSA volume control
     awful.key({ }, "XF86AudioRaiseVolume", 
     function () 
@@ -421,22 +405,7 @@ globalkeys = awful.util.table.join(
             os.execute(string.format("amixer -q set %s toggle", beautiful.volume.channel))
             beautiful.volume.update()
         end),
-    --[[awful.key({ altkey }, "m",
-        function ()
-            os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
-    awful.key({ altkey, "Control" }, "m",
-        function ()
-            os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
---[[    awful.key({ altkey, "Control" }, "0",
-        function ()
-            os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end),--]]
-    
+        
     -- Brightness control
     awful.key({ }, "XF86MonBrightnessUp", 
         function()
@@ -446,40 +415,6 @@ globalkeys = awful.util.table.join(
         function()
             awful.util.spawn("xbacklight -dec 10")
         end),
-
-    -- MPD control
---[[    awful.key({ altkey, "Control" }, "Up",
-        function ()
-            awful.spawn.with_shell("mpc toggle")
-            beautiful.mpd.update()
-        end),
-    awful.key({ altkey, "Control" }, "Down",
-        function ()
-            awful.spawn.with_shell("mpc stop")
-            beautiful.mpd.update()
-        end),
-    awful.key({ altkey, "Control" }, "Left",
-        function ()
-            awful.spawn.with_shell("mpc prev")
-            beautiful.mpd.update()
-        end),
-    awful.key({ altkey, "Control" }, "Right",
-        function ()
-            awful.spawn.with_shell("mpc next")
-            beautiful.mpd.update()
-        end),
-    awful.key({ altkey }, "0",
-        function ()
-            local common = { text = "MPD widget ", position = "top_middle", timeout = 2 }
-            if beautiful.mpd.timer.started then
-                beautiful.mpd.timer:stop()
-                common.text = common.text .. lain.util.markup.bold("OFF")
-            else
-                beautiful.mpd.timer:start()
-                common.text = common.text .. lain.util.markup.bold("ON")
-            end
-            naughty.notify(common)
-        end),--]]
 
     -- Multimedia Keys
     awful.key({ }, "XF86AudioPlay", 
@@ -675,19 +610,10 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+                     placement = awful.placement.no_offscreen,
                      size_hints_honor = false
      }
     },
-
--- For magnified terminal
-    { rule = { class = "Lxterminal" },
-     	callback = function(c)
-        	if request_magnified_terminal then
-             		lain.util.magnify_client(c)
-         	end
-         	request_magnified_terminal = false
-     	end },
 
     { rule = { class = "Nautilus" },
         callback = function(c)

@@ -10,3 +10,7 @@ map <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 let NERDTreeWinPos='left'
 let NERDTreeQuitOnOpen=1
+set shiftwidth=4 smarttab
+set softtabstop=0 noexpandtab
+set tabstop=4
+

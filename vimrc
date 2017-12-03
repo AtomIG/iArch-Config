@@ -14,3 +14,13 @@ set shiftwidth=4 smarttab
 set softtabstop=0 noexpandtab
 set tabstop=4
 
+set nocompatible 
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'dag/vim-fish'
+
+filetype plugin indent on

@@ -534,8 +534,13 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized = not c.maximized
+			if c.maximized then
+				c:emit_signal("maximize")
+			elseif not c.maximized then
+				c:emit_signal("unmaximize")
+			end
             c:raise()
-        end ,
+        end,
         {description = "maximize", group = "client"})
 )
 
@@ -725,6 +730,18 @@ client.connect_signal("focus",
         end
     end)
 
+
+client.connect_signal("maximize", function(c)
+	c.border_width = 0
+	end)
+client.connect_signal("unmaximize", function(c)
+	if #awful.screen.focused().clients > 1 then
+		c.border_width = beautiful.border_width
+		c.border_color = beautiful.border_focus
+	else
+		c.border_width = 0
+	end
+	end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 client.connect_signal("magnify", function(c) lain.util.magnify_client(c) end)
 local collision = require("collision")()

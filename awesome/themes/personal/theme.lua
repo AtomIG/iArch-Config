@@ -100,6 +100,8 @@ local spotifyicon = wibox.widget.imagebox()
 local spotify = spotify_display({
     timeout = 0.6,
     settings = function()
+		metadata.title = string.gsub(metadata.title, "&", "&amp;")
+		metadata.artist = string.gsub(metadata.artist, "&", "&amp;")
         if metadata.status ~= "" and metadata.title ~= "" and metadata.artist ~= "" then
             display = "<span weight='heavy' foreground='#474747' font='" .. theme.font .. "'>" .. metadata.title .. " by " .. metadata.artist .. "</span>"
             widget:set_markup(display)

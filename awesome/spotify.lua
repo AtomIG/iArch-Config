@@ -2,7 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local newtimer = require("lain.helpers").newtimer
 local string = string
-
+--local naughty = require("naughty")
 
 local function construct(args)
     local spotify  = { widget = wibox.widget.textbox() }
@@ -40,6 +40,7 @@ local function construct(args)
                 function(stdout,stderr,_,_,_)
                     if stderr == "" then
                         metadata.title = string.gsub(stdout,"\n","")
+--						naughty.notify({text = stdout})
                     else metadata.title = "" end
                 end)
 
@@ -47,6 +48,7 @@ local function construct(args)
                 function(stdout,stderr,_,_,_)
                     if stderr == "" then
                         metadata.artist = string.gsub(stdout,"\n","")
+--						naughty.notify({text = stdout})
                     else metadata.artist = "" end
                 end)
 

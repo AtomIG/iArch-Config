@@ -13,6 +13,7 @@ let NERDTreeQuitOnOpen=1
 set shiftwidth=4 smarttab
 set softtabstop=0 noexpandtab
 set tabstop=4
+set virtualedit=all
 
 set nocompatible 
 filetype off
@@ -24,3 +25,12 @@ Bundle 'gmarik/vundle'
 Bundle 'dag/vim-fish'
 
 filetype plugin indent on
+
+" Vim Latex
+
+filetype plugin indent on
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor = "latex"
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_ViewRule_pdf = 'zathura'
+set shellslash

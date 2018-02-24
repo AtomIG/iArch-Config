@@ -3,4 +3,4 @@
 
 config_version: 1
 global:
-  content.javascript.enabled: true
+  fonts.keyhint: 10pt monospace

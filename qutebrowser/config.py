@@ -729,7 +729,7 @@ c.fonts.completion.entry = '9pt monospace'
 
 ## Font used for the downloadbar.
 ## Type: Font
-# c.fonts.downloads = '8pt monospace'
+c.fonts.downloads = '9pt monospace'
 
 ## Font used for the hints.
 ## Type: Font
@@ -745,7 +745,7 @@ c.fonts.completion.entry = '9pt monospace'
 
 ## Font used for info messages.
 ## Type: Font
-# c.fonts.messages.info = '8pt monospace'
+c.fonts.messages.info = '8pt monospace'
 
 ## Font used for warning messages.
 ## Type: Font
@@ -758,7 +758,7 @@ c.fonts.monospace = '"Overpass","xos4 Terminus", Terminus, Monospace, "DejaVu Sa
 
 ## Font used for prompts.
 ## Type: Font
-# c.fonts.prompts = '8pt sans-serif'
+c.fonts.prompts = '9pt monospace'
 
 ## Font used in the statusbar.
 ## Type: Font

@@ -10,13 +10,12 @@ map <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 let NERDTreeWinPos='left'
 let NERDTreeQuitOnOpen=1
-set shiftwidth=4 smarttab
+set shiftwidth=4
 set softtabstop=0 noexpandtab
 set tabstop=4
 set virtualedit=all
 
 set nocompatible 
-filetype off
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -24,13 +23,12 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'dag/vim-fish'
 
-filetype plugin indent on
-
 " Vim Latex
 
 filetype plugin indent on
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex"
+set sw=2
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_ViewRule_pdf = 'zathura'
-set shellslash
+let g:Tex_CustomTemplateDirectory = '~/.vim/latex/, $VIM/ftplugin/latex-suite/templates/'

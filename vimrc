@@ -31,4 +31,4 @@ let g:tex_flavor = "latex"
 set sw=2
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_ViewRule_pdf = 'zathura'
-let g:Tex_CustomTemplateDirectory = '~/.vim/latex/, $VIM/ftplugin/latex-suite/templates/'
+let g:Tex_CustomTemplateDirectory = '~/.vim/latex/, /usr/share/vim/vimfiles/ftplugin/latex-suite/templates'

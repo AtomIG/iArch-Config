@@ -11,7 +11,7 @@ local spotify_display = require("spotify")
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/personal"
-theme.wallpaper                                 = theme.dir .. "/desktop/hkscape.png"
+theme.wallpaper                                 = theme.dir .. "/desktop/wall.png"
 theme.font                                      = "Lato semibold 10"
 theme.fg_normal                                 = "#FFFFFF"
 theme.fg_focus                                  = "#32D6FF"

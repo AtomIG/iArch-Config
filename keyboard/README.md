@@ -28,3 +28,4 @@ What you Press on Keyboard | What gets typed on screen
 `Shift + 4` or `$`         | `\|`
 `Shift + \` or `\|`        | `;`
 `Shift + ;` or `:`         | `$`
+etc.

@@ -57,7 +57,16 @@ local useless_gap      = 0
 local lock_cmd         = os.getenv("HOME") ..  "/.config/lock.conf"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "Browse", "Edit", "Compile", "Draw", "Music", "Misc" }
+awful.util.tagnames = { "Browse", "Edit", "Compile", "Draw", "Game", "Music", "Misc" }
+awful.util.layouts  = {
+  	awful.layout.suit.tile, 	-- Browse
+	awful.layout.suit.tile, 	-- Edit
+	awful.layout.suit.tile, 	-- Compile
+	awful.layout.suit.floating, -- Draw
+	awful.layout.suit.floating, -- Game
+	awful.layout.suit.tile, 	-- Music
+	awful.layout.suit.tile, 	-- Misc
+  }
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
@@ -70,7 +79,7 @@ awful.layout.layouts = {
     --awful.layout.suit.spiral.dwindle,
     --awful.layout.suit.max,
     --awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
+    --awful.layout.suit.magnifier,
     --awful.layout.suit.corner.nw,
     --awful.layout.suit.corner.ne,
     --awful.layout.suit.corner.sw,
@@ -133,16 +142,6 @@ awful.util.tasklist_buttons = awful.util.table.join(
                      awful.button({ }, 5, function ()
                                               awful.client.focus.byidx(-1)
                                           end))
-
-lain.layout.termfair.nmaster           = 3
-lain.layout.termfair.ncol              = 1
-lain.layout.termfair.center.nmaster    = 3
-lain.layout.termfair.center.ncol       = 1
-lain.layout.cascade.tile.offset_x      = 2
-lain.layout.cascade.tile.offset_y      = 32
-lain.layout.cascade.tile.extra_padding = 5
-lain.layout.cascade.tile.nmaster       = 5
-lain.layout.cascade.tile.ncol          = 2
 
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
@@ -218,13 +217,6 @@ globalkeys = awful.util.table.join(
     -- Hotkeys
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    -- Tag browsing
-   -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-   --           {description = "view previous", group = "tag"}),
-   -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-   --           {description = "view next", group = "tag"}),
-   -- awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
-   --           {description = "go back", group = "tag"}),
 
     -- Non-empty tag browsing
     awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
@@ -307,8 +299,17 @@ globalkeys = awful.util.table.join(
     end),
    
     -- On the fly useless gaps change
-    awful.key({ altkey, "Control" }, "=", function () lain.util.useless_gaps_resize(1); useless_gap = 0 end,
+    awful.key({ altkey, "Control", "Shift" }, "=", function () lain.util.useless_gaps_resize(1); useless_gap = 0 end,
               { description = "increase useless gaps", group = "layout" }),
+	awful.key({ altkey, "Control" }, "=",
+		function()
+		  local scr = awful.screen.focused()
+		  local gap = scr.selected_tag.gap
+		  local default = beautiful.useless_gap
+		  local gap_change = default - gap
+		  lain.util.useless_gaps_resize(gap_change)
+		end,
+		{ description = "return useless gaps to default", group = "layout" }),
     awful.key({ altkey, "Control" }, "-", function () lain.util.useless_gaps_resize(-1); useless_gap = 0 end,
               { description = "decrease useless gaps", group = "layout" }),
     awful.key({ altkey, "Control" }, "0", 

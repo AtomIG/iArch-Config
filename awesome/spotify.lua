@@ -8,7 +8,6 @@ local function construct(args)
     local spotify  = { widget = wibox.widget.textbox() }
     local args     = args or {}
     local timeout  = args.timeout or 3
- 	local mode 	   = args.mode or ""
     local settings = args.settings or function() end
 
 -- Note that metadata.status,metadata.title,metadata.artist, and metadata.album will never take on a value of nil. Instead, when there is no player available, they will report values of "". Code used in constructing the widget (i.e. the settings function) should be made accordingly.
@@ -22,32 +21,11 @@ local function construct(args)
     }
     
     function spotify.update()
-      if mode == 'vlc' then
-		local get_status = "playerctl status"
-		local get_title  = "playerctl metadata vlc:nowplaying"
 
-            awful.spawn.easy_async(get_status, 
-                function(stdout,stderr,_,_,_)
-                    if stderr == "" then
-                        stdout = string.gsub(stdout,"\n","")
-                            if stdout == 'Not available' then
-                                metadata.status = ""
-                            else metadata.status = stdout end
-                    else metadata.status = "" end
-                end)
-
-            awful.spawn.easy_async(get_title, 
-                function(stdout,stderr,_,_,_)
-                    if stderr == "" then
-                        metadata.title = string.gsub(stdout,"\n","")
---						naughty.notify({text = stdout})
-                    else metadata.title = "" end
-                end)
-	  else
-		local get_status = "playerctl status"
-	 	local get_title  = "playerctl metadata xesam:title"
-		local get_artist = "playerctl metadata xesam:artist"
-		local get_album  = "playerctl metadata xesam:album"
+	local get_status = "playerctl status"
+ 	local get_title  = "playerctl metadata title"
+	local get_artist = "playerctl metadata artist"
+	local get_album  = "playerctl metadata album"
 
             awful.spawn.easy_async(get_status, 
                 function(stdout,stderr,_,_,_)
@@ -80,7 +58,6 @@ local function construct(args)
                         metadata.album = string.gsub(stdout,"\n","")
                     else metadata.album = "" end
                 end)
-	  end
 
 -- To do: Make it so that the spotify widget will have a much larger timeout when music is not playing
 -- or, alternatively, to set up signals so that the widget will only query playerctl if spotify is open

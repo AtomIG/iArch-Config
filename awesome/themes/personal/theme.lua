@@ -6,7 +6,7 @@ local beautiful = require("beautiful")
 local collision = require("collision")
 local os, math, string, next = os, math, string, next
 local spotify_display = require("spotify")
---local naughty = require("naughty")
+local naughty = require("naughty")
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/personal"
@@ -55,7 +55,7 @@ theme.widget_cpu                                = theme.dir .. "/icons/cpu.png"
 theme.widget_temp                               = theme.dir .. "/icons/temp.png"
 theme.widget_net                                = theme.dir .. "/icons/net.png"
 theme.widget_hdd                                = theme.dir .. "/icons/hdd.png"
-theme.widget_music_play                         = theme.dir .. "/icons/play-button.svg"
+theme.widget_music_play                         = theme.dir .. "/icons/play.svg"
 theme.widget_music_on                           = theme.dir .. "/icons/note_on.png"
 theme.widget_music_pause                        = theme.dir .. "/icons/pause.svg"
 theme.widget_music_stop                         = theme.dir .. "/icons/stop.png"
@@ -96,41 +96,36 @@ theme.volume = lain.widget.alsabar({
 
 -- Spotify
 local spotifyicon = wibox.widget.imagebox()
-local spotify_mode = 'vlc'
+local spotify_mode = ''
 local spotify = spotify_display({
     timeout = 0.6,
-	mode = spotify_mode,
     settings = function()
+	        metadata.status = string.gsub(metadata.status, "&","&amp;")
 		metadata.title = string.gsub(metadata.title, "&", "&amp;")
---		naughty.notify({text = metadata.status})
 		metadata.artist = string.gsub(metadata.artist, "&", "&amp;")
-		if spotify_mode == 'vlc' and metadata.status ~= "" and metadata.title ~= "" then
-		  display = "<span weight='heavy' foreground='#474747' font='" .. theme.font .. "'>" .. metadata.title .. "</span>"
-		  widget:set_markup(display)
-		elseif metadata.status ~= "" and metadata.title ~= "" and metadata.artist ~= "" then
+	if metadata.status ~= "" and metadata.title ~= "" and metadata.artist ~= "" then
             display = "<span weight='heavy' foreground='#474747' font='" .. theme.font .. "'>" .. metadata.title .. " by " .. metadata.artist .. "</span>"
 			widget:set_markup(display)
-        else 
-            widget:set_text("     ")
+        else
+		widget:set_text("     ")
         end
-            if metadata.status == 'Playing' then
-                spotifyicon.image = theme.widget_music_play
-            elseif metadata.status == 'Paused' then
-                spotifyicon.image = theme.widget_music_pause
-			else
-			  spotifyicon.image = nil
-            end
+
+        if metadata.status == 'Playing' then
+		spotifyicon.image = theme.widget_music_play
+        elseif metadata.status == 'Paused' then
+                spotifyicon.image = theme.widget_music_pause 
+	else
+	        spotifyicon.image = nil
+        end
     end})
-	--
-spotify.widget:buttons(awful.util.table.join(
-						awful.button( { }, 1, 
-						function()
-							if spotify_mode == "vlc" then
-							  spotify_mode = ""
-							else
-							  spotify_mode = "vlc"
-							end
-						end)))
+
+-- Battery
+--local battery = ""
+--awful.spawn.easy_async("cat /sys/class/power_supply/BAT0/capacity",
+--	function(stdout,stderr,_,_,_)
+--		stdout = string.gsub(stdout, "\n","")
+--		battery = stdout
+
 
 -- Clock
 local clock = wibox.widget.textclock("<span font='" .. theme.font .. "'>%a %b %d  %l:%M %p </span>", 59)

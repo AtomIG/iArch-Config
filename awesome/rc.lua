@@ -296,7 +296,8 @@ globalkeys = awful.util.table.join(
                 s.mybottomwibox.visible = not s.mybottomwibox.visible
             end
         end
-    end),
+    end,
+    {description = 'toggle wibox', group = 'awesome'}),
    
     -- On the fly useless gaps change
     awful.key({ altkey, "Control", "Shift" }, "=", function () lain.util.useless_gaps_resize(1); useless_gap = 0 end,

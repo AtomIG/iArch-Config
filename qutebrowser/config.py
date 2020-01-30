@@ -758,15 +758,15 @@ c.fonts.monospace = '"Overpass","xos4 Terminus", Terminus, Monospace, "DejaVu Sa
 
 ## Font used for prompts.
 ## Type: Font
-c.fonts.prompts = '9pt monospace'
+c.fonts.prompts = '10pt monospace'
 
 ## Font used in the statusbar.
 ## Type: Font
-c.fonts.statusbar = '9pt monospace'
+c.fonts.statusbar = '10pt monospace'
 
 ## Font used in the tab bar.
 ## Type: QtFont
-c.fonts.tabs = '9pt monospace'
+c.fonts.tabs = '10pt monospace'
 
 ## Font family for cursive fonts.
 ## Type: FontFamily

@@ -7,6 +7,7 @@ local collision = require("collision")
 local os, math, string, next = os, math, string, next
 local spotify_display = require("spotify")
 local naughty = require("naughty")
+local gradient  = require("colors").gradient
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/personal"
@@ -83,6 +84,7 @@ theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/
 theme.icon_theme                                = "Numix"
 theme.systray_icon_spacing                      = 6
 theme.bg_systray                                = "#474747"
+wiboxcolors				= gradient("#cccccc","#202020",4)
 
 local markup = lain.util.markup
 local separators = lain.util.separators
@@ -207,19 +209,21 @@ function theme.at_screen_connect(s)
             nil, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            arrow("alpha","#cccccc"),
-            wibox.container.background(wibox.container.margin(wibox.widget { wibox.container.margin(spotifyicon,0,6,2,1), spotify.widget, layout = wibox.layout.align.horizontal },30,30,0,1),"#cccccc"),
-            arrow("#cccccc", "#959595"),
-            wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3,0,1), "#959595"),
-            arrow("#959595", "#6e6e6e"),
-            wibox.container.background(wibox.container.margin(wibox.widget { fsicon, theme.fs.widget, layout = wibox.layout.align.horizontal }, 3, 3,0,1), "#6e6e6e"),
-            arrow("#6e6e6e",theme.bg_systray),
-            wibox.container.background(wibox.container.margin(systray,6,2), theme.bg_systray),
-            wibox.container.background(wibox.container.margin(clock, 8, 10,0,1), theme.bg_systray),
-            arrow(theme.bg_systray, "#202020"),
-            wibox.container.background(wibox.container.margin(s.mylayoutbox,2,2), "#202020"),
+            arrow("alpha",wiboxcolors[1]),
+            wibox.container.background(wibox.container.margin(wibox.widget { wibox.container.margin(spotifyicon,0,6,2,1), spotify.widget, layout = wibox.layout.align.horizontal },30,30,0,1),wiboxcolors[1]),
+            arrow(wiboxcolors[1], wiboxcolors[2]),
+            wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3,0,1), wiboxcolors[2]),
+            arrow(wiboxcolors[2], wiboxcolors[3]),
+            wibox.container.background(wibox.container.margin(wibox.widget { fsicon, theme.fs.widget, layout = wibox.layout.align.horizontal }, 3, 3,0,1), wiboxcolors[3]),
+            arrow(wiboxcolors[3],wiboxcolors[4]),
+            wibox.container.background(wibox.container.margin(systray,6,2), wiboxcolors[4]),
+            wibox.container.background(wibox.container.margin(clock, 8, 10,0,1), wiboxcolors[4]),
+            arrow(wiboxcolors[4], wiboxcolors[5]),
+            wibox.container.background(wibox.container.margin(s.mylayoutbox,2,2), wiboxcolors[5]),
         },
     }
 end
+
+-- #202020 --> theme.bg_systray --> #6e6e6e --> #959595 --> #cccccc
 
 return theme
